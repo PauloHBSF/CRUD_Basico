@@ -6,13 +6,15 @@ import os
 from dotenv import load_dotenv
 load_dotenv()
 
-SQLALCHEMY_DATABASE_URL = URL.create(
-    "postgresql+psycopg2",
-    username=os.getenv('USERNAME'),
-    password=os.getenv('PASSWORD'),
-    host=os.getenv('HOST'),
-    database=os.getenv('DATABASE')
-)
+# SQLALCHEMY_DATABASE_URL = URL.create(
+#     "postgresql+psycopg2",
+#     username=os.getenv('USERNAME'),
+#     password=os.getenv('PASSWORD'),
+#     host=os.getenv('HOST'),
+#     database=os.getenv('DATABASE')
+# )
+
+SQLALCHEMY_DATABASE_URL = "sqlite:///database.db"
 
 engine = create_engine(SQLALCHEMY_DATABASE_URL)
 SessionLocal = sessionmaker(autoflush=False, bind=engine)
