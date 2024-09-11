@@ -13,6 +13,7 @@ psycopg2 = "^2.9.9"
 dotenv-python = "^0.0.1"
 python-dotenv = "^1.0.1"
 fastapi = {extras = ["standard"], version = "^0.114.0"}
+psycopg = {extras = ["binary"], version = "^3.2.1"}
 
 
 [build-system]

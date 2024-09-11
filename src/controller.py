@@ -14,7 +14,8 @@ models.Base.metadata.create_all(bind=db_conn.engine)
 @app.get('/')
 def home():
     return {'Welcome to my fisrt API!': 'Agradecimentos ao prof. Galvão Filho!'}
-        
+
+
 @app.post("/items/", response_model=Item)
 def create_item(item: ItemCreate, db: Session = Depends(db_conn.get_db)):
     db_item = models.Item(**item.dict())
@@ -23,10 +24,20 @@ def create_item(item: ItemCreate, db: Session = Depends(db_conn.get_db)):
     db.refresh(db_item)
     return db_item
 
-@app.get("/items/{item_id}", response_model=List[Item])
+
+@app.get("/items/", response_model=List[Item])
 def read_items(skip: int = 0, limit: int = 10, db: Session = Depends(db_conn.get_db)):
     items = db.query(models.Item).offset(skip).limit(limit).all()
     return items
+
+
+@app.get("/items/{item_id}", response_model=Item)
+def read_items(item_id: int, db: Session = Depends(db_conn.get_db)):
+    returned_item = db.query(models.Item).filter(models.Item.id == item_id).first()
+    if returned_item is None:
+        raise HTTPException(status_code=404, detail="Item not found")
+    return returned_item
+
 
 @app.put("/items/{item_id}", response_model=Item)
 def update_item(item_id: int, item: ItemCreate, db: Session = Depends(db_conn.get_db)):
@@ -39,6 +50,7 @@ def update_item(item_id: int, item: ItemCreate, db: Session = Depends(db_conn.ge
     db.refresh(db_item)
     return db_item
 
+
 @app.delete("/items/{item_id}", response_model=Item)
 def delete_item(item_id: int, db: Session = Depends(db_conn.get_db)):
     db_item = db.query(models.Item).filter(models.Item.id == item_id).first()
@@ -47,4 +59,3 @@ def delete_item(item_id: int, db: Session = Depends(db_conn.get_db)):
     db.delete(db_item)
     db.commit()
     return db_item
-
