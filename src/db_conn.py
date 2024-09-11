@@ -2,10 +2,10 @@ from sqlalchemy import create_engine, URL
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy.orm import declarative_base
 
-from dotenv import load_dotenv
-import os
+# from dotenv import load_dotenv
+# import os
 
-load_dotenv()
+# load_dotenv()
 
 # uri = URL.create(
 #     drivername='postgresql+psycopg2',
