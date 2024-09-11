@@ -7,18 +7,17 @@ import os
 
 load_dotenv()
 
-uri = URL.create(
-    drivername='postgresql+psycopg2',
-    username=os.getenv('USER'),
-    password=os.getenv('PASSWORD'),
-    host=os.getenv('DB_HOST'),
-    port=os.getenv('PORT'),
-    database=os.getenv('DATABASE')
-)
+# uri = URL.create(
+#     drivername='postgresql+psycopg2',
+#     username=os.getenv('USER'),
+#     password=os.getenv('PASSWORD'),
+#     host=os.getenv('DB_HOST'),
+#     port=os.getenv('PORT'),
+#     database=os.getenv('DATABASE')
+# )
 
-print(uri)
 
-# uri = "sqlite:///database.db"
+uri = "sqlite:///database.db"
 
 engine = create_engine(uri)
 SessionLocal = sessionmaker(autoflush=False, bind=engine)
